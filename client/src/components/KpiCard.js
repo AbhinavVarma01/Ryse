@@ -8,14 +8,16 @@ function KpiCard({ label, value, change, trend, icon: Icon, iconClass }) {
         <div className={`flex h-10 w-10 items-center justify-center rounded-xl ${iconClass}`}>
           <Icon size={19} />
         </div>
-        <span className={`flex items-center gap-0.5 text-xs font-semibold ${isPositive ? 'text-emerald-600' : 'text-rose-500'}`}>
-          {isPositive ? <ArrowUpRight size={14} /> : <ArrowDownRight size={14} />}
-          {change}
-        </span>
+        {change && (
+          <span className={`flex items-center gap-0.5 text-xs font-semibold ${isPositive ? 'text-emerald-600' : 'text-rose-500'}`}>
+            {isPositive ? <ArrowUpRight size={14} /> : <ArrowDownRight size={14} />}
+            {change}
+          </span>
+        )}
       </div>
       <p className="mt-5 text-sm font-medium text-slate-500">{label}</p>
       <p className="mt-1 text-2xl font-bold tracking-tight text-[#101b36]">{value}</p>
-      <p className="mt-1 text-xs text-slate-400">vs. previous 30 days</p>
+      <p className="mt-1 text-xs text-slate-400">{change ? 'vs. previous 30 days' : 'current snapshot'}</p>
     </article>
   );
 }

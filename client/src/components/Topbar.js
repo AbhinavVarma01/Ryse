@@ -45,7 +45,7 @@ function Topbar({ onMenuClick }) {
             JD
           </span>
           <span className="hidden text-left md:block">
-            <span className="block text-sm font-semibold text-slate-700">Jordan Davis</span>
+            <span className="block text-sm font-semibold text-slate-700">Abhinav Varma</span>
             <span className="block text-xs text-slate-400">Admin</span>
           </span>
           <ChevronDown size={16} className="hidden text-slate-400 md:block" />
