@@ -1,0 +1,10 @@
+import { Database, SlidersHorizontal } from 'lucide-react';
+import users from '../data/users';
+import customers from '../data/customers';
+import features from '../data/features';
+
+function SettingsPage() {
+  return <div className="mx-auto max-w-3xl"><h2 className="text-2xl font-bold text-[#101b36]">Settings</h2><p className="mt-2 text-sm text-slate-500">Manage the lightweight preferences for this dashboard prototype.</p><section className="mt-7 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"><div className="flex items-center gap-3"><SlidersHorizontal className="text-teal-600" size={20} /><h3 className="font-bold text-[#101b36]">Dashboard preferences</h3></div><label className="mt-6 flex items-center justify-between border-b border-slate-100 pb-5 text-sm text-slate-600"><span>Show adoption health summary</span><input defaultChecked type="checkbox" className="h-4 w-4 accent-teal-600" /></label><label className="mt-5 flex items-center justify-between text-sm text-slate-600"><span>Use compact table density</span><input type="checkbox" className="h-4 w-4 accent-teal-600" /></label></section><section className="mt-5 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"><div className="flex items-center gap-3"><Database className="text-teal-600" size={20} /><h3 className="font-bold text-[#101b36]">Demo data</h3></div><p className="mt-2 text-sm text-slate-500">This prototype reads local JavaScript datasets only. No external API or database connection is configured.</p><div className="mt-5 grid grid-cols-3 gap-3 text-center"><div className="rounded-xl bg-slate-50 p-3"><p className="text-xl font-bold text-[#101b36]">{users.length}</p><p className="text-xs text-slate-500">Users</p></div><div className="rounded-xl bg-slate-50 p-3"><p className="text-xl font-bold text-[#101b36]">{customers.length}</p><p className="text-xs text-slate-500">Customers</p></div><div className="rounded-xl bg-slate-50 p-3"><p className="text-xl font-bold text-[#101b36]">{features.length}</p><p className="text-xs text-slate-500">Features</p></div></div></section></div>;
+}
+
+export default SettingsPage;

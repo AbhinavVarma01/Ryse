@@ -6,6 +6,7 @@ import users from '../data/users';
 import customers from '../data/customers';
 import features from '../data/features';
 import activity from '../data/activity';
+import { getCustomerAdoption, getCustomerStatus } from '../utils/adoptionInsights';
 
 function OverviewPage() {
   const totalUsers = users.length;
@@ -17,12 +18,6 @@ function OverviewPage() {
     ...item,
     shortDate: new Date(`${item.date}T00:00:00`).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
   }));
-
-  const getAdoptionStatus = (percentage) => {
-    if (percentage >= 75) return { label: 'High', className: 'bg-emerald-50 text-emerald-700' };
-    if (percentage >= 50) return { label: 'Medium', className: 'bg-amber-50 text-amber-700' };
-    return { label: 'Low', className: 'bg-rose-50 text-rose-700' };
-  };
 
   return (
     <div className="mx-auto max-w-[1440px]">
@@ -71,13 +66,19 @@ function OverviewPage() {
               </thead>
               <tbody className="divide-y divide-slate-100">
                 {customers.map((customer) => {
-                  const status = getAdoptionStatus(customer.adoptionPercentage);
+                  const adoption = getCustomerAdoption(customer);
+                  const health = getCustomerStatus(adoption);
+                  const status = health === 'Healthy'
+                    ? { label: 'Healthy', className: 'bg-emerald-50 text-emerald-700' }
+                    : health === 'At Risk'
+                      ? { label: 'At Risk', className: 'bg-amber-50 text-amber-700' }
+                      : { label: 'Critical', className: 'bg-rose-50 text-rose-700' };
                   return (
                     <tr key={customer.customerId} className="text-sm">
                       <td className="py-3.5 font-semibold text-slate-700">{customer.companyName}</td>
                       <td className="py-3.5 text-slate-500">{customer.totalRegisteredUsers}</td>
                       <td className="py-3.5 text-slate-500">{customer.activeUsers}</td>
-                      <td className="py-3.5 font-semibold text-slate-700">{customer.adoptionPercentage.toFixed(1)}%</td>
+                      <td className="py-3.5 font-semibold text-slate-700">{adoption.toFixed(1)}%</td>
                       <td className="py-3.5 text-right"><span className={`rounded-full px-2.5 py-1 text-[11px] font-semibold ${status.className}`}>{status.label}</span></td>
                     </tr>
                   );
